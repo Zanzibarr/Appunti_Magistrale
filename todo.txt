@@ -6,3 +6,5 @@ Operations:
 Inferential:
 - Es L0
 - Es L1
+Game Theory:
+- 25/10
