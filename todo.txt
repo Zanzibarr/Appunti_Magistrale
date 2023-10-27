@@ -8,3 +8,4 @@ Inferential:
 - Es L1
 Game Theory:
 - 25/10
+- 26/10
