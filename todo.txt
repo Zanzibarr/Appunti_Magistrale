@@ -1,6 +1,4 @@
-Automata:
-- 24/10
-Operations:
+Operations: 
 - 25/10
 Inferential:
 - Es L0
