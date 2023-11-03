@@ -1,6 +1,1 @@
-Inferential:
-- Es L0
-- Es L2
-Game Theory:
-- 25/10
-- 26/10
+Lezioni del 03/11

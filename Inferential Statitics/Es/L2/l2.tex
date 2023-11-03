@@ -78,4 +78,13 @@ The most compatible is the $Exp(1/4)$
 We can't spot any differences and the boxplot tells us that the distribution is "roughly" symmetric, since the whiskers are kinda of the same length.\\
 The quantiles are roughly $Q_1=2,Q_2=4,Q_3=7$.\\
 We can also see only one sample outside the boxplot, wich means that there is only a value $X_i$ s.t. $X_i\geq q_3+1.5\cdot iqr$.
+\subsection*{2.3.3:}
+$$\hat{F_n}(5.25)=\frac{1}{n}\sum_i\textbf{1}_{X_i}(x)=\frac{6}{10}=0.6$$
+Running the following code in R, we get the same result:\\
+\begin{verbatim}
+data <- c(8.935, 0.492, 6.951, 4.102, 0.111, 2.699, 3.255, 6.254, 2.120, 29.389)
+f <- ecdf(data)
+f(5.25) # 0.6
+\end{verbatim}
+
 \end{document}
