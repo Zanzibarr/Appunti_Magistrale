@@ -1,22 +1,14 @@
-# Observed sample data
-observed_data <- c(8.935, 0.492, 6.951, 4.102, 0.111, 2.699, 3.255, 6.254, 2.120, 29.389)
+x_sorted <- sort(c(8.935, 0.492, 6.951, 4.102, 0.111, 2.699, 3.255, 6.254, 2.120, 29.389))
 
-# Create QQ plots
-par(mfrow = c(1, 3))  # Create a 1x3 layout for the plots
+n = length(x_sorted)
 
-# Function to create QQ plot with the line
-create_qq_plot <- function(rate, title) {
-  qqplot(qexp(ppoints(length(observed_data)), rate), observed_data,
-         xlab = "Theoretical Quantiles", ylab = "Sample Quantiles",
-         main = title)
-  abline(0, 1, col = "blue")  # Add a line with intercept 0 and slope 1 (y = x)
-}
+yq_1 = qexp((1:n)/(n+1))
+yq_1over4 = qexp((1:n)/(n+1), rate = 1/4)
+yq_4 = qexp((1:n)/(n+1), rate = 4)
 
-create_qq_plot(1, "QQ Plot against Exp(1)")
-create_qq_plot(1/4, "QQ Plot against Exp(1/4)")
-create_qq_plot(4, "QQ Plot against Exp(4)")
+plot(x_sorted, yq_1, pch=20, ylim=c(0,30))
+points(x_sorted, yq_4, pch=21, col=2)
+points(x_sorted, yq_1over4, pch=22, col=5)
+abline(a=0, b=1, lwd=2, lty=2)
 
-par(mfrow = c(1, 1))  # Reset the layout
-
-# Save the plots as pictures
-dev.print(pdf, 'Documents/Uni/Inferential\ Statitics/R/qqplot_2-3.pdf')
+# Longer tail
