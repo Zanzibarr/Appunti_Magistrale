@@ -133,3 +133,83 @@ Indexing is offline, query is online.
 - must be realistic
 - must be understandable
 
+### Evaluation measures
+- set based retrieval
+    - binary relevance: precision, recall, f-mesure
+- rank based retrieval:
+    - binary relevance: precision at cutoff, recall at cutoff, Rprecision, AveragePrecision, RankBiased Precision, ...
+    - multigraded relevance: discounted cumulated gain
+
+
+### Precision
+- proportion of retrieved documents that are actually relevant
+- P = #(retrieved and relevant) / #(retrieved)
+
+### Recall
+- proportion of relevant documents actually retrieved
+- R = #(retrieved and relevant) / #(relevant)
+
+Together precision and recall measure retrieval effectiveness: ability of a system to retrieve relevant documents while holding back non relevant ones
+
+### F-measure
+- is the armonic mean of precision and recall
+- F = #(retrieved and relevant) / ( (#(relevant) + #(retrieved)) / 2 )
+
+### Precision at cutoff
+- $P(k)=\frac{1}{k}\sum_{n=1}^kr_n$ with $r_n$ the relevance degree of the n-th document
+
+### Recall at cutoff
+- $R(k)=\frac{1}{RB}\sum_{n=1}^kr_n$ where $RB$=#(relevant)
+
+Rprec is the precision computed at the recall base $Rprec=P(RB)$
+
+We can interpolate precision at standard recall value $R_j$ using the maximum precision obtained for any recall $R$ greather (or equal) than $R_j$:  
+$iP@R_j=max_{R\geq R_j}P@R$
+
+### Average Precision
+$AP=\frac{rr}{RB}\cdot\frac{1}{rr}\sum_{k\in R}P(k)$
+where:
+- $R$ is the set of the rank position of the relevant retrieved documents
+- $rr=|R|$ the number of relevant retrieved documents
+- $\frac{rr}{RB}$ is the recall
+- $\frac{1}{rr}\sum_{k\in R}P(k)$ is the arithmetic mean of $P(k)$
+- The MAP (Mean Average Precision) is the mean of AP over a set of topics
+
+### Precision Recall curve
+- The area under the curve of the precision-recall curve (AUC) is an important indicator of the overall system effectiveness
+- through some calculations we get that $AUC=AP$
+
+### Discounted cumulated gain
+- Naturally handles multi-graded relevance
+- does not depend on the recall base
+- is not bounded in [0,1]  
+
+$DCG(k)=\{$  
+- $\sum_{n=1}^kr_n$ if $k<b$
+- $DCG(k-1)+\frac{r_k}{log_b(k)}$ if $k\geq b$  
+
+$= \sum_{n=1}^k{\displaystyle\frac{r_n}{max(1, log_b(n))}}$
+
+The base of the logarithm $b$ indicates the patience of the user scanning the result list:
+- b=2 impatient
+- b=10 patient
+
+$\sum_{n=1}^kr_n$ if $k<b$ is the Cumulated Gain (CG)
+
+To normalize DCG in [0,1] we must compute the ideal run, which represents the best retrieval posible (and the maximum value of the DCG)  
+
+$nDCG(k)=\frac{DCG(k)}{iDCG(k)}$
+
+### User models
+- browsing model (how user interacts with the results)
+- model of documented utility (how a user derives utility from individual relevant documents)
+- utility accumulation model (describes how a user accumulates utility in the course of browsing)
+
+Use models may be more or less artificial -> less correlated with actual user behaviour
+
+### Rank biased precision
+- the user starts from the top ranked document and with probability $p$ called persistence goes to the next document
+- $p=.5$ -> impatient user
+- $p=.8$ -> patient user
+- $RBP=(1-p)\sum_{k\in R}p^{k-1}$
+- note that RBP is independent from the recall base
