@@ -338,3 +338,45 @@ Use models may be more or less artificial -> less correlated with actual user be
     - 15% have never occurred before
     - caching improves effectiveness
     - caches must be refreshed to prevent stale data
+
+### Lucene index
+- composed of multiple sub-indexes (segments)
+- searches might involve multiple segments
+- inside:
+    - info (metadata)
+    - field names
+    - inverted index
+        - term dictionary
+        - term frequency data
+        - term proximity data
+        - stored fields data
+        - stored fields values
+        - normalization factors
+        - per document values
+    - direct index (term vectors): for each field in each document term text and frequency might be stored
+    - ...
+
+### Lucene codec
+- used to store the index in a text file (not for production, but for learning)
+
+### Statistical hypostesis testing
+- matematical framework to conduct statistical inference from the data
+- compares the null hypotesis against an alternative hypotesis
+- comparison is statistically significant if the data are unlikely to be a realisation of the null hypotesis with respect to a chosen threshold (significance level $\alpha$)
+- types of error:
+    - type 1 error: false positive (reject $H_0$ which is true)
+        - concerns the comparison of 2 alternatives
+        - multiple comparisone increases the type 1 error probability (easier to reject the null hypotesis even if I shouldn't since the comparisons are independent):  
+
+        $$P(No\;type\;1\;errors)=(1-\alpha)^m$$
+    - type 2 error: false negative (accept $H_0$ which is false)
+
+### Student's test
+- assume to have a random sample of size n from two normally distributed random variables with same variance
+- define the difference among these two random variables: this follows the student's distribution with $k=n-1$ degrees of freedom
+$$T=\frac{\hat{\mu}_D+\mu_D}{\sqrt{\hat{\sigma_D}^2/n}}\sim t(n-1)$$
+- assumptions:
+    - independence: topics and systems can be considered independent
+    - normality: typical IR measures are bounded in [0,1] 
+    - homoskedasticity: variance changes across systems
+- it is considered robust to violations of normality and homoskedasticyty
